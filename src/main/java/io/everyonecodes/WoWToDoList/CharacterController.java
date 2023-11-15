@@ -1,10 +1,11 @@
 package io.everyonecodes.WoWToDoList;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/characters")
@@ -21,5 +22,15 @@ public class CharacterController {
         return service.findAll();
     }
 
+    @GetMapping("/{id}")
+    public Optional<Character> findById(@PathVariable Long id) {
+        return Optional.of(service.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id)));
+    }
+
+    @PostMapping
+    public Character createCharacter(@RequestBody Character character) {
+        return service.createCharacter(character);
+    }
 
 }

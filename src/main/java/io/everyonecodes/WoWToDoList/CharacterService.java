@@ -20,7 +20,7 @@ public class CharacterService {
         return repository.findAll();
     }
 
-    public Optional<Character> findById(Long id) {
+    public Optional<Character> findById(@PathVariable Long id) {
         return repository.findById(id);
     }
 
@@ -41,7 +41,7 @@ public class CharacterService {
         }
     }
 
-    public Character saveCharacter(@RequestBody Character updatedCharacter) {
+    public Character createCharacter(@RequestBody Character updatedCharacter) {
         return repository.save(updatedCharacter);
     }
 
