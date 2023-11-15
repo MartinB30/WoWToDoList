@@ -33,4 +33,19 @@ public class CharacterController {
         return service.createCharacter(character);
     }
 
+    @PutMapping("/{id}")
+    public Character updateCharacter(@RequestBody Character character, @PathVariable Long id) {
+        return service.updateCharacter(id, character);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteById(@PathVariable Long id) {
+        service.deleteById(id);
+    }
+
+//    @GetMapping("/{id}/tasks")
+//    public List<Task> getCharacterTaskListById(@PathVariable Long id) {
+//        return service.getTaskForCharacter(id);
+//    }
+
 }
