@@ -20,7 +20,7 @@ public class TaskService {
     public List<Task> findAll() {
         return repository.findAll();
     }
-    public List<Task> findByCharacterId(@PathVariable Long characterId) {
+    public Optional<List<Task>> findByCharacterId(@PathVariable Long characterId) {
         return repository.findByCharacterId(characterId);
     }
 
@@ -47,8 +47,8 @@ public class TaskService {
         }
     }
 
-    public Task savePost(@RequestBody Task updatedTask) {
-        return repository.save(updatedTask);
+    public Task createTask(@RequestBody Task task) {
+        return repository.save(task);
     }
 
 }
