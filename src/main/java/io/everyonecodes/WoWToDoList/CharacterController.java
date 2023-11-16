@@ -1,5 +1,6 @@
 package io.everyonecodes.WoWToDoList;
 
+import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;

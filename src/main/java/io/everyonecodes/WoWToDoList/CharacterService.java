@@ -1,5 +1,6 @@
 package io.everyonecodes.WoWToDoList;
 
+import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ public class CharacterService {
         this.repository = repository;
     }
 
-    public List<Character> findAll () {
+    public List<Character> findAll() {
         return repository.findAll();
     }
 
@@ -33,13 +34,13 @@ public class CharacterService {
     public Character updateCharacter(@PathVariable Long id, @RequestBody Character updatedCharacter) {
         Optional<Character> existingCharacter = repository.findById(id);
         if (updatedCharacter.getName() == null && updatedCharacter.getServer() == null) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "not available inputs name:" + updatedCharacter.getName() + " server:" + updatedCharacter.getServer());
+            throw new BadRequestException("Character name and server can not be null");
         }
 
         if (existingCharacter.isPresent()) {
             Character character = existingCharacter.get();
 
-            if(updatedCharacter.getName() != null){
+            if (updatedCharacter.getName() != null) {
                 character.setName(updatedCharacter.getName());
             }
 
@@ -47,15 +48,17 @@ public class CharacterService {
                 character.setServer(updatedCharacter.getServer());
             }
 
-
             return repository.save(character);
         } else {
             return createCharacter(updatedCharacter);
         }
     }
 
-    public Character createCharacter(@RequestBody Character updatedCharacter) {
-        return repository.save(updatedCharacter);
+    public Character createCharacter(@RequestBody Character character) {
+        if (character.getName() == null || character.getServer() == null) {
+            throw new BadRequestException("Character name and server can not be null");
+        }
+        return repository.save(character);
     }
 
 }
