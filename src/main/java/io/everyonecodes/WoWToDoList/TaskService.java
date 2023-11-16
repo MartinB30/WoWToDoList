@@ -1,5 +1,6 @@
 package io.everyonecodes.WoWToDoList;
 
+import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,6 +21,7 @@ public class TaskService {
     public List<Task> findAll() {
         return repository.findAll();
     }
+
     public Optional<List<Task>> findByCharacterId(@PathVariable Long characterId) {
         return repository.findByCharacterId(characterId);
     }
@@ -32,22 +34,34 @@ public class TaskService {
         repository.deleteById(id);
     }
 
-    public Task saveTask(Long id, @RequestBody Task updatedTask) {
-        Optional<Task> existingTask = repository.findById(id);
-        if (existingTask.isPresent()) {
-            Task task = existingTask.get();
-            task.setTaskName(updatedTask.getTaskName());
-            task.setDescription(updatedTask.getDescription());
+    public Task updateTask(@RequestBody Task updatedTask, @PathVariable Long id) {
+        Optional<Task> oExistingTask = findById(id);
+        if (oExistingTask.isPresent()) {
+            Task task = oExistingTask.get();
+
+            if (updatedTask.getTaskName() != null) {
+                task.setTaskName(updatedTask.getTaskName());
+            }
+
+            if (updatedTask.getDescription() != null) {
+                task.setDescription(updatedTask.getDescription());
+            }
+
+            if (updatedTask.getCharacter() != null) {
+                task.setCharacter(updatedTask.getCharacter());
+            }
+
             task.setCompleted(updatedTask.isCompleted());
-            task.setCharacter(updatedTask.getCharacter());
             return repository.save(task);
         } else {
-            Task newTask = new Task(updatedTask.getTaskName(), updatedTask.getDescription(), updatedTask.isCompleted(), updatedTask.getCharacter());
-            return repository.save(newTask);
+            return createTask(updatedTask);
         }
     }
 
     public Task createTask(@RequestBody Task task) {
+        if (task.getCharacter() == null || task.getDescription() == null || task.getTaskName() == null) {
+            throw new BadRequestException("Task name, description or character ID cannot be null");
+        }
         return repository.save(task);
     }
 

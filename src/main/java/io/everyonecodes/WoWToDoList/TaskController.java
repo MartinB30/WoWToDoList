@@ -37,9 +37,16 @@ public class TaskController {
 
     @PostMapping
     public Task createTask(@RequestBody Task task) {
-        if (task.getCharacter() == null || task.getDescription() == null || task.getTaskName() == null) {
-            throw new BadRequestException("Task name, description or character ID cannot be null");
-        }
         return service.createTask(task);
+    }
+
+    @PutMapping("/{id}")
+    public Task updateTask(@RequestBody Task updateTask, @PathVariable Long id) {
+        return service.updateTask(updateTask, id);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteTask(@PathVariable Long id) {
+        service.deleteById(id);
     }
 }

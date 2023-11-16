@@ -32,7 +32,7 @@ public class CharacterService {
     }
 
     public Character updateCharacter(@PathVariable Long id, @RequestBody Character updatedCharacter) {
-        Optional<Character> existingCharacter = repository.findById(id);
+        Optional<Character> existingCharacter = findById(id);
         if (updatedCharacter.getName() == null && updatedCharacter.getServer() == null) {
             throw new BadRequestException("Character name and server can not be null");
         }
