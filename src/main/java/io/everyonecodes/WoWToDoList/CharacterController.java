@@ -19,28 +19,28 @@ public class CharacterController {
     }
 
     @GetMapping
-    public List<Character> findAll() {
+    List<Character> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Character> findById(@PathVariable Long id) {
+    Optional<Character> findById(@PathVariable Long id) {
         return Optional.of(service.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id)));
     }
 
     @PostMapping
-    public Character createCharacter(@RequestBody Character character) {
+    Character createCharacter(@RequestBody Character character) {
         return service.createCharacter(character);
     }
 
     @PutMapping("/{id}")
-    public Character updateCharacter(@RequestBody Character character, @PathVariable Long id) {
+    Character updateCharacter(@RequestBody Character character, @PathVariable Long id) {
         return service.updateCharacter(id, character);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(@PathVariable Long id) {
+    void deleteById(@PathVariable Long id) {
         service.deleteById(id);
     }
 

@@ -19,12 +19,12 @@ public class TaskController {
     }
 
     @GetMapping
-    public List<Task> findAll() {
+    List<Task> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    public Optional<Task> findById(@PathVariable Long id){
+    Optional<Task> findById(@PathVariable Long id){
         return Optional.of(service.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with id " + id)));
     }
@@ -36,17 +36,17 @@ public class TaskController {
     }
 
     @PostMapping
-    public Task createTask(@RequestBody Task task) {
+    Task createTask(@RequestBody Task task) {
         return service.createTask(task);
     }
 
     @PutMapping("/{id}")
-    public Task updateTask(@RequestBody Task updateTask, @PathVariable Long id) {
+    Task updateTask(@RequestBody Task updateTask, @PathVariable Long id) {
         return service.updateTask(updateTask, id);
     }
 
     @DeleteMapping("/{id}")
-    public void deleteTask(@PathVariable Long id) {
+    void deleteTask(@PathVariable Long id) {
         service.deleteById(id);
     }
 }

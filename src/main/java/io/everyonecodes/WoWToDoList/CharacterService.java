@@ -60,5 +60,4 @@ public class CharacterService {
         }
         return repository.save(character);
     }
-
 }
