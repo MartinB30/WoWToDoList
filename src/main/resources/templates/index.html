@@ -9,6 +9,7 @@
 
 <body>
     <div th:each="char : ${character}">
+        <a th:href="'/characters/' + ${char.id}">
         <h2 th:text="${char.name + ' - ' + char.server}">Name - Server</h2>
     </div>
 </body>
