@@ -1,4 +1,4 @@
-package io.everyonecodes.WoWToDoList;
+package io.everyonecodes.WoWToDoList.character;
 
 import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
 import org.springframework.stereotype.Service;

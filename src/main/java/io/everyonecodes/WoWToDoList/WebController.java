@@ -1,6 +1,8 @@
 package io.everyonecodes.WoWToDoList;
 
 import io.everyonecodes.WoWToDoList.blizzardApi.BlizzardService;
+import io.everyonecodes.WoWToDoList.character.CharacterService;
+import io.everyonecodes.WoWToDoList.task.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,7 +50,7 @@ public class WebController {
     ModelAndView profilePage(Authentication authentication) {
 
         ModelAndView view = new ModelAndView("profile.html");
-        Map<String, String> profile = blizzardService.profileRequest(authentication);
+        Map<String, String> profile = blizzardService.profileRequestOnlyNameAndServer(authentication);
 
         Map<String, String> filteredProfile = profile.entrySet().stream()
                 .filter(entry -> !characterService.isCharacterInDatabase(entry.getKey(), entry.getValue()))

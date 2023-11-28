@@ -1,5 +1,6 @@
-package io.everyonecodes.WoWToDoList;
+package io.everyonecodes.WoWToDoList.task;
 
+import io.everyonecodes.WoWToDoList.character.Character;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

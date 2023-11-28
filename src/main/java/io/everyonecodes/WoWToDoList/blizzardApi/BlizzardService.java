@@ -22,7 +22,7 @@ public class BlizzardService {
         this.authorizedClientService = authorizedClientService;
     }
 
-    public Map<String, String> profileRequest(Authentication authentication) {
+    public Map<String, String> profileRequestOnlyNameAndServer(Authentication authentication) {
         OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
         OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
         String accessToken = authorizedClient.getAccessToken().getTokenValue();

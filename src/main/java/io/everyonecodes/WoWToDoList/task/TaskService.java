@@ -1,11 +1,10 @@
-package io.everyonecodes.WoWToDoList;
+package io.everyonecodes.WoWToDoList.task;
 
 import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 

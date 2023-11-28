@@ -30,6 +30,6 @@ public class BlizzardController {
         OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
         String accessToken = authorizedClient.getAccessToken().getTokenValue();
 
-        return blizzardApiService.profileRequest(authentication);
+        return blizzardApiService.profileRequestOnlyNameAndServer(authentication);
     }
 }

@@ -1,4 +1,4 @@
-package io.everyonecodes.WoWToDoList;
+package io.everyonecodes.WoWToDoList.character;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
