@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>profile</title>
+    <link rel="stylesheet" href="/css/styles.css">
+
+</head>
+
+<body>
+    <h1>Blizzard Profile</h1>
+
+    <div th:each="entry : ${profile}">
+        <p th:text="${entry.key + ' - ' + entry.value}"></p>
+    </div>
+</body>
+
+</html>

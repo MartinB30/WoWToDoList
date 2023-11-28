@@ -13,12 +13,12 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/callback").authenticated()
-                        .anyRequest().permitAll()
-                )
+//                .authorizeHttpRequests(authorize -> authorize
+//                        .requestMatchers("/callback").authenticated()
+//                        .anyRequest().permitAll()
+//                )
                 .oauth2Login(oauth2login -> oauth2login
-                        .defaultSuccessUrl("/callback")
+                        .defaultSuccessUrl("/api/blizzard/profile")
                         .authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
                                 .baseUri("/oauth2/authorization")));
         return http.build();

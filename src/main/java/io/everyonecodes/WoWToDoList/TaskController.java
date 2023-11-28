@@ -29,7 +29,7 @@ public class TaskController {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Task not found with id " + id)));
     }
 
-    @GetMapping("/characters/{id}")
+    @GetMapping("/character/{id}")
     public Optional<List<Task>> findByCharacterId(@PathVariable Long id) {
         return Optional.of(service.findByCharacterId(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id)));

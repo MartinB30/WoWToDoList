@@ -1,12 +1,9 @@
 package io.everyonecodes.WoWToDoList;
 
 import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -59,5 +56,10 @@ public class CharacterService {
             throw new BadRequestException("Character name and server can not be null");
         }
         return repository.save(character);
+    }
+
+    public boolean isCharacterInDatabase(String name, String server) {
+        Optional<Character> oExistingCharacter = repository.findByNameAndServer(name, server);
+        return oExistingCharacter.isPresent();
     }
 }
