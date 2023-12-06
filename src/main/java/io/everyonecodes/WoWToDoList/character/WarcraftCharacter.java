@@ -15,16 +15,18 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Character {
+public class WarcraftCharacter {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Getter
     private String name;
+    @Getter
     private String server;
 
-    public Character(String name, String server) {
+    public WarcraftCharacter(String name, String server) {
         this.name = name;
         this.server = server;
     }

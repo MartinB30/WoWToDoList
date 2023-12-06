@@ -8,11 +8,11 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class CharacterService {
+public class WarcraftCharacterService {
 
-    private final CharacterRepository repository;
+    private final WarcraftCharacterRepository repository;
 
-    public CharacterService(CharacterRepository repository) {
+    public WarcraftCharacterService(WarcraftCharacterRepository repository) {
         this.repository = repository;
     }
 

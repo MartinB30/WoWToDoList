@@ -1,6 +1,6 @@
 package io.everyonecodes.WoWToDoList.task;
 
-import io.everyonecodes.WoWToDoList.character.Character;
+import io.everyonecodes.WoWToDoList.character.WarcraftCharacter;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,9 +24,9 @@ public class Task {
     private boolean isCompleted;
 
     @ManyToOne
-    private Character character;
+    private WarcraftCharacter character;
 
-    public Task(String taskName, String description, boolean isCompleted, Character character) {
+    public Task(String taskName, String description, boolean isCompleted, WarcraftCharacter character) {
         this.taskName = taskName;
         this.description = description;
         this.isCompleted = isCompleted;

@@ -1,7 +1,8 @@
 package io.everyonecodes.WoWToDoList;
 
 import io.everyonecodes.WoWToDoList.blizzardApi.BlizzardService;
-import io.everyonecodes.WoWToDoList.character.CharacterService;
+import io.everyonecodes.WoWToDoList.character.WarcraftCharacter;
+import io.everyonecodes.WoWToDoList.character.WarcraftCharacterService;
 import io.everyonecodes.WoWToDoList.task.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -18,13 +20,13 @@ import java.util.stream.Collectors;
 @RestController
 public class WebController {
 
-    private final CharacterService characterService;
+    private final WarcraftCharacterService warcraftCharacterService;
     private final TaskService taskService;
 
     private final BlizzardService blizzardService;
 
-    public WebController(CharacterService characterService, TaskService taskService, BlizzardService blizzardService) {
-        this.characterService = characterService;
+    public WebController(WarcraftCharacterService characterService, TaskService taskService, BlizzardService blizzardService) {
+        this.warcraftCharacterService = characterService;
         this.taskService = taskService;
         this.blizzardService = blizzardService;
     }
@@ -33,7 +35,7 @@ public class WebController {
     ModelAndView homePage() {
 
         ModelAndView view = new ModelAndView("index.html");
-        view.addObject("character", characterService.findAll());
+        view.addObject("warcraftCharacter", warcraftCharacterService.findAll());
         return view;
     }
 
@@ -53,7 +55,7 @@ public class WebController {
         Map<String, String> profile = blizzardService.profileRequestOnlyNameAndServer(authentication);
 
         Map<String, String> filteredProfile = profile.entrySet().stream()
-                .filter(entry -> !characterService.isCharacterInDatabase(entry.getKey(), entry.getValue()))
+                .filter(entry -> !warcraftCharacterService.isCharacterInDatabase(entry.getKey(), entry.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
 
         view.addObject("profile", filteredProfile);

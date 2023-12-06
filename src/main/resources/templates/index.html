@@ -13,7 +13,7 @@
         <button>Add a new character from your Blizzard Account</button>
     </a>
 
-    <div th:each="char : ${character}">
+    <div th:each="char : ${warcraftCharacter}">
         <a th:href="'/characters/' + ${char.id}">
             <h2 th:text="${char.name + ' - ' + char.server}">Name - Server</h2>
         </a>

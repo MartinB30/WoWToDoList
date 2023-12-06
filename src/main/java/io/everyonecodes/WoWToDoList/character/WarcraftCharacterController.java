@@ -9,11 +9,11 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/character")
-public class CharacterController {
+public class WarcraftCharacterController {
 
-    private final CharacterService service;
+    private final WarcraftCharacterService service;
 
-    public CharacterController(CharacterService service) {
+    public WarcraftCharacterController(WarcraftCharacterService service) {
         this.service = service;
     }
 

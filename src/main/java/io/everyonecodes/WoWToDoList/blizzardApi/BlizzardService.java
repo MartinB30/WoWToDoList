@@ -13,32 +13,50 @@ import java.util.Map;
 @Service
 public class BlizzardService {
 
+    private static final String REGION = "eu";
+    private static final String LOCALE = "?locale=en_US";
+
+    private final WebClient webClient;
     private final CharacterExtractor characterExtractor;
     private final OAuth2AuthorizedClientService authorizedClientService;
 
-
-    public BlizzardService(CharacterExtractor characterExtractor, OAuth2AuthorizedClientService authorizedClientService) {
+    public BlizzardService(WebClient webClient, CharacterExtractor characterExtractor, OAuth2AuthorizedClientService authorizedClientService) {
+        this.webClient = webClient;
         this.characterExtractor = characterExtractor;
         this.authorizedClientService = authorizedClientService;
     }
 
-    public Map<String, String> profileRequestOnlyNameAndServer(Authentication authentication) {
+    protected String getAccessToken(Authentication authentication) {
         OAuth2AuthenticationToken oauthToken = (OAuth2AuthenticationToken) authentication;
         OAuth2AuthorizedClient authorizedClient = authorizedClientService.loadAuthorizedClient(oauthToken.getAuthorizedClientRegistrationId(), oauthToken.getName());
-        String accessToken = authorizedClient.getAccessToken().getTokenValue();
+        return authorizedClient.getAccessToken().getTokenValue();
+    }
 
+    //TODO remove duplicates in profileRequestOnlyNameAndServer and profileInformation
+    public Map<String, String> profileRequestOnlyNameAndServer(Authentication authentication) {
+
+        String accessToken = getAccessToken(authentication);
         String profileUrl = "https://{region}.api.blizzard.com/profile/user/wow";
-        WebClient webClient = WebClient.builder()
-                .baseUrl(profileUrl.replace("{region}", "eu") + "?locale=en_US")
-                .defaultHeader(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-                .defaultHeader("Battlenet-Namespace", "profile-classic1x-eu")
-                .build();
 
-        String responseBody = webClient.get()
+        return webClient.get()
+                .uri(profileUrl.replace("{region}", REGION) + LOCALE)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
+                .retrieve()
+                .bodyToMono(String.class)
+                .map(characterExtractor::extractCharacters)
+                .block();
+    }
+
+    public String profileInformation(Authentication authentication) {
+
+        String accessToken = getAccessToken(authentication);
+        String profileUrl = "https://{region}.api.blizzard.com/profile/user/wow";
+
+        return webClient.get()
+                .uri(profileUrl.replace("{region}", REGION) + LOCALE)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
                 .retrieve()
                 .bodyToMono(String.class)
                 .block();
-
-        return characterExtractor.extractCharacters(responseBody);
     }
 }

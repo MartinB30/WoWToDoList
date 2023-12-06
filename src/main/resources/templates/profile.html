@@ -5,15 +5,39 @@
     <meta charset="UTF-8">
     <title>profile</title>
     <link rel="stylesheet" href="/css/styles.css">
-
 </head>
 
 <body>
-    <h1>Blizzard Profile</h1>
+<h1>Blizzard Profile</h1>
 
-    <div th:each="entry : ${profile}">
-        <p th:text="${entry.key + ' - ' + entry.value}"></p>
-    </div>
+<div th:each="character : ${profile}">
+    <p th:text="${character.key + ' - ' + character.value}"></p>
+    <button type="button" th:attr="onclick='addToDatabase(&quot;' + ${character.key} + '&quot;, &quot;' + ${character.value} + '&quot;)'">Add to Database</button>
+
+</div>
+
+<script>
+    function addToDatabase(name, server) {
+        var data = {
+            "name": name,
+            "server": server
+        };
+
+        fetch('/api/character', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            window.location.reload();
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 </body>
 
 </html>
