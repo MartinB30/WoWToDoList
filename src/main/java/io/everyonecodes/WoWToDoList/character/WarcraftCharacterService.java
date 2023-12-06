@@ -17,7 +17,7 @@ public class WarcraftCharacterService {
     }
 
     public List<WarcraftCharacter> findAll() {
-        return repository.findAll();
+        return repository.findAllByOrderByServerAscNameAsc();
     }
 
     public Optional<WarcraftCharacter> findById(@PathVariable Long id) {

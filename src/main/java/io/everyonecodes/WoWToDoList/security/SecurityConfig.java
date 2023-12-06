@@ -20,7 +20,7 @@ public class SecurityConfig {
                         .permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .oauth2Login(oauth2login -> oauth2login
-                        .defaultSuccessUrl("/api/blizzard/profile")
+                        .defaultSuccessUrl("/character/profile")
                         .authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig
                                 .baseUri("/oauth2/authorization")));
         return http.build();

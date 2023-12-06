@@ -9,12 +9,12 @@
 
 <body>
 
-    <a th:href="@{/character/profile}">
+        <a th:href="@{/oauth2/authorization/blizzard}">
         <button>Add a new character from your Blizzard Account</button>
     </a>
 
     <div th:each="char : ${warcraftCharacter}">
-        <a th:href="'/characters/' + ${char.id}">
+        <a th:href="'/character/' + ${char.id}">
             <h2 th:text="${char.name + ' - ' + char.server}">Name - Server</h2>
         </a>
     </div>

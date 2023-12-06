@@ -13,7 +13,6 @@
 <div th:each="character : ${profile}">
     <p th:text="${character.key + ' - ' + character.value}"></p>
     <button type="button" th:attr="onclick='addToDatabase(&quot;' + ${character.key} + '&quot;, &quot;' + ${character.value} + '&quot;)'">Add to Database</button>
-
 </div>
 
 <script>
