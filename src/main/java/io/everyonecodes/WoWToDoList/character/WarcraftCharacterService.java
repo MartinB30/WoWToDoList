@@ -16,11 +16,11 @@ public class CharacterService {
         this.repository = repository;
     }
 
-    public List<Character> findAll() {
+    public List<WarcraftCharacter> findAll() {
         return repository.findAll();
     }
 
-    public Optional<Character> findById(@PathVariable Long id) {
+    public Optional<WarcraftCharacter> findById(@PathVariable Long id) {
         return repository.findById(id);
     }
 
@@ -28,14 +28,14 @@ public class CharacterService {
         repository.deleteById(id);
     }
 
-    public Character updateCharacter(@PathVariable Long id, @RequestBody Character updatedCharacter) {
-        Optional<Character> existingCharacter = findById(id);
+    public WarcraftCharacter updateCharacter(@PathVariable Long id, @RequestBody WarcraftCharacter updatedCharacter) {
+        Optional<WarcraftCharacter> existingCharacter = findById(id);
         if (updatedCharacter.getName() == null && updatedCharacter.getServer() == null) {
             throw new BadRequestException("Character name and server can not be null");
         }
 
         if (existingCharacter.isPresent()) {
-            Character character = existingCharacter.get();
+            WarcraftCharacter character = existingCharacter.get();
 
             if (updatedCharacter.getName() != null) {
                 character.setName(updatedCharacter.getName());
@@ -51,7 +51,7 @@ public class CharacterService {
         }
     }
 
-    public Character createCharacter(@RequestBody Character character) {
+    public WarcraftCharacter createCharacter(@RequestBody WarcraftCharacter character) {
         if (character.getName() == null || character.getServer() == null) {
             throw new BadRequestException("Character name and server can not be null");
         }
@@ -59,7 +59,7 @@ public class CharacterService {
     }
 
     public boolean isCharacterInDatabase(String name, String server) {
-        Optional<Character> oExistingCharacter = repository.findByNameAndServer(name, server);
+        Optional<WarcraftCharacter> oExistingCharacter = repository.findByNameAndServer(name, server);
         return oExistingCharacter.isPresent();
     }
 }

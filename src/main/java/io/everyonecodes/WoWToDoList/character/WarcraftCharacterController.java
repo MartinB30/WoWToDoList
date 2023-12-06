@@ -18,23 +18,23 @@ public class CharacterController {
     }
 
     @GetMapping
-    List<Character> findAll() {
+    List<WarcraftCharacter> findAll() {
         return service.findAll();
     }
 
     @GetMapping("/{id}")
-    Optional<Character> findById(@PathVariable Long id) {
+    Optional<WarcraftCharacter> findById(@PathVariable Long id) {
         return Optional.of(service.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id)));
     }
 
     @PostMapping
-    Character createCharacter(@RequestBody Character character) {
+    WarcraftCharacter createCharacter(@RequestBody WarcraftCharacter character) {
         return service.createCharacter(character);
     }
 
     @PutMapping("/{id}")
-    Character updateCharacter(@RequestBody Character character, @PathVariable Long id) {
+    WarcraftCharacter updateCharacter(@RequestBody WarcraftCharacter character, @PathVariable Long id) {
         return service.updateCharacter(id, character);
     }
 
