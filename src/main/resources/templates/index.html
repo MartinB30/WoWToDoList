@@ -9,15 +9,50 @@
 
 <body>
 
-        <a th:href="@{/oauth2/authorization/blizzard}">
-        <button>Add a new character from your Blizzard Account</button>
+<script th:inline="javascript">
+
+    function toggleFavoriteStatus(characterId, currentFavoriteStatus) {
+        console.log('toggleFavoriteStatus called with:', characterId, currentFavoriteStatus);
+
+        fetch('/api/character/' + characterId + '/favorite', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                id: characterId,
+                favorite: !currentFavoriteStatus,
+            }),
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
+
+
+<a th:href="@{/oauth2/authorization/blizzard}">
+    <button>Add a new character from your Blizzard Account</button>
+</a>
+
+<div th:each="char : ${warcraftCharacter}">
+    <a th:href="'/character/' + ${char.id}">
+        <h2 th:text="${char.name + ' - ' + char.server}">Name - Server</h2>
     </a>
 
-    <div th:each="char : ${warcraftCharacter}">
-        <a th:href="'/character/' + ${char.id}">
-            <h2 th:text="${char.name + ' - ' + char.server}">Name - Server</h2>
-        </a>
-    </div>
+
+    <label>
+        <input type="checkbox" th:checked="${char.favorite}" th:attr="onchange='toggleFavoriteStatus(' + ${char.id} + ', ' + ${char.favorite} + ')'" />
+        Favorite
+    </label>
+
+</div>
+
 </body>
 
 </html>

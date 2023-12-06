@@ -9,5 +9,5 @@ public interface WarcraftCharacterRepository extends JpaRepository<WarcraftChara
 
     Optional<WarcraftCharacter> findByNameAndServer(String name, String server);
 
-    List<WarcraftCharacter> findAllByOrderByServerAscNameAsc();
+    List<WarcraftCharacter> findAllByOrderByFavoriteDescServerAscNameAsc();
 }

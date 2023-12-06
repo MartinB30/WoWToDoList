@@ -1,9 +1,12 @@
 package io.everyonecodes.WoWToDoList.character;
 
 import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -17,7 +20,7 @@ public class WarcraftCharacterService {
     }
 
     public List<WarcraftCharacter> findAll() {
-        return repository.findAllByOrderByServerAscNameAsc();
+        return repository.findAllByOrderByFavoriteDescServerAscNameAsc();
     }
 
     public Optional<WarcraftCharacter> findById(@PathVariable Long id) {
@@ -61,5 +64,11 @@ public class WarcraftCharacterService {
     public boolean isCharacterInDatabase(String name, String server) {
         Optional<WarcraftCharacter> oExistingCharacter = repository.findByNameAndServer(name, server);
         return oExistingCharacter.isPresent();
+    }
+
+    public WarcraftCharacter updateFavoriteStatus(Long id, boolean favorite) {
+        WarcraftCharacter character = repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id));
+        character.setFavorite(favorite);
+        return repository.save(character);
     }
 }

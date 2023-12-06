@@ -1,9 +1,6 @@
 package io.everyonecodes.WoWToDoList.character;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,13 +18,13 @@ public class WarcraftCharacter {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Getter
     private String name;
-    @Getter
     private String server;
+    private boolean favorite;
 
-    public WarcraftCharacter(String name, String server) {
+    public WarcraftCharacter(String name, String server, boolean favorite) {
         this.name = name;
         this.server = server;
+        this.favorite = favorite;
     }
 }

@@ -1,6 +1,7 @@
 package io.everyonecodes.WoWToDoList.character;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -30,6 +31,7 @@ public class WarcraftCharacterController {
 
     @PostMapping
     WarcraftCharacter createCharacter(@RequestBody WarcraftCharacter character) {
+        character.setFavorite(false);
         return service.createCharacter(character);
     }
 
@@ -41,6 +43,12 @@ public class WarcraftCharacterController {
     @DeleteMapping("/{id}")
     void deleteById(@PathVariable Long id) {
         service.deleteById(id);
+    }
+
+    @PutMapping("/{id}/favorite")
+    public ResponseEntity<WarcraftCharacter> updateFavoriteStatus(@PathVariable Long id, @RequestBody WarcraftCharacter character) {
+        WarcraftCharacter updatedCharacter = service.updateFavoriteStatus(id, character.isFavorite());
+        return new ResponseEntity<>(updatedCharacter, HttpStatus.OK);
     }
 
 //    @GetMapping("/{id}/tasks")
