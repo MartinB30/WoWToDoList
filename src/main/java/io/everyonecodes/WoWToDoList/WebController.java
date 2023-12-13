@@ -40,7 +40,7 @@ public class WebController {
     ModelAndView taskListFromCharacterId(@PathVariable Long id) {
 
         ModelAndView view = new ModelAndView("taskListCharacterId.html");
-        view.addObject("task", taskService.findByCharacterId(id)
+        view.addObject("tasks", taskService.findByCharacterId(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id)));
         return view;
     }

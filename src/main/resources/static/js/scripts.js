@@ -21,7 +21,7 @@ function toggleFavoriteStatus(characterId, currentFavoriteStatus) { //used in in
     .catch(error => console.error('Error:', error));
 }
 
-function addCharacterFromApiToDatabase(name, server) {
+function addCharacterFromApiToDatabase(name, server) {//used in profile.html
          let data = {
             "name": name,
             "server": server
@@ -41,3 +41,35 @@ function addCharacterFromApiToDatabase(name, server) {
         })
         .catch(error => console.error('Error:', error));
     }
+
+   function createTask() { //create a new task in taskListCharacterId
+           var taskName = document.getElementById('taskName').value;
+           var description = document.getElementById('description').value;
+           var characterId = Number(window.location.pathname.split('/').pop());
+
+           var newTask = {
+               taskName: taskName,
+               description: description,
+               isCompleted: false,
+               warcraftCharacter: {
+                   id: characterId
+               }
+           };
+
+           fetch('/api/tasks', {
+               method: 'POST',
+               headers: {
+                   'Content-Type': 'application/json',
+               },
+               body: JSON.stringify(newTask),
+           })
+           .then(response => {
+               if (response.ok) {
+                   location.reload();
+               } else {
+
+               }
+           })
+           .catch(error => console.error('Error:', error));
+       }
+

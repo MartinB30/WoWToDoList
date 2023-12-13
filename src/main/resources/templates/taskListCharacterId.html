@@ -4,13 +4,60 @@
     <meta charset="UTF-8">
     <title>Task list</title>
     <link rel="stylesheet" href="/css/styles.css">
+    <script th:src="@{/js/scripts.js}" defer="true"></script>
+
 </head>
 <body>
-    <div th:each="task : ${task}">
-        <h2 th:text="${task.taskName}">Task name</h2>
-        <p th:text="${task.description}">Task description</p>
-        </form>
-    </div>
+
+<form id="createTaskForm">
+    <label for="taskName">Task Name:</label>
+    <input type="text" id="taskName" name="taskName" required>
+
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" required>
+
+    <button type="button" onclick="createTask()">Create Task</button>
+</form>
+
+<div th:each="task : ${tasks}">
+    <h2 th:text="${task.taskName}">Task name</h2>
+    <p th:text="${task.description}">Task description</p>
+</div>
+
+
+
+<script>
+    function createTask() {
+        var taskName = document.getElementById('taskName').value;
+        var description = document.getElementById('description').value;
+        var characterId = Number(window.location.pathname.split('/').pop());
+
+        var newTask = {
+            taskName: taskName,
+            description: description,
+            isCompleted: false,
+            warcraftCharacter: {
+                id: characterId
+            }
+        };
+
+        fetch('/api/tasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTask),
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                // Handle error
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
+</script>
 
 </body>
 </html>

@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface TaskRepository extends JpaRepository<Task, Long> {
 
-    Optional<List<Task>> findByCharacterId(Long characterId);
+    Optional<List<Task>> findByWarcraftCharacterId(Long id);
 
 }

@@ -1,5 +1,7 @@
 package io.everyonecodes.WoWToDoList.task;
 
+import io.everyonecodes.WoWToDoList.character.WarcraftCharacter;
+import io.everyonecodes.WoWToDoList.character.WarcraftCharacterService;
 import io.everyonecodes.WoWToDoList.customExceptions.BadRequestException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +24,7 @@ public class TaskService {
     }
 
     public Optional<List<Task>> findByCharacterId(@PathVariable Long characterId) {
-        return repository.findByCharacterId(characterId);
+        return repository.findByWarcraftCharacterId(characterId);
     }
 
     public Optional<Task> findById(Long id) {
@@ -46,8 +48,8 @@ public class TaskService {
                 task.setDescription(updatedTask.getDescription());
             }
 
-            if (updatedTask.getCharacter() != null) {
-                task.setCharacter(updatedTask.getCharacter());
+            if (updatedTask.getWarcraftCharacter() != null) {
+                task.setWarcraftCharacter(updatedTask.getWarcraftCharacter());
             }
 
             task.setCompleted(updatedTask.isCompleted());
@@ -58,7 +60,7 @@ public class TaskService {
     }
 
     public Task createTask(@RequestBody Task task) {
-        if (task.getCharacter() == null || task.getDescription() == null || task.getTaskName() == null) {
+        if (task.getWarcraftCharacter() == null || task.getDescription() == null || task.getTaskName() == null) {
             throw new BadRequestException("Task name, description or character ID cannot be null");
         }
         return repository.save(task);

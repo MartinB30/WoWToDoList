@@ -24,12 +24,12 @@ public class Task {
     private boolean isCompleted;
 
     @ManyToOne
-    private WarcraftCharacter character;
+    private WarcraftCharacter warcraftCharacter;
 
-    public Task(String taskName, String description, boolean isCompleted, WarcraftCharacter character) {
+    public Task(String taskName, String description, boolean isCompleted, WarcraftCharacter warcraftCharacter) {
         this.taskName = taskName;
         this.description = description;
         this.isCompleted = isCompleted;
-        this.character = character;
+        this.warcraftCharacter = warcraftCharacter;
     }
 }
