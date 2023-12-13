@@ -50,10 +50,4 @@ public class WarcraftCharacterController {
         WarcraftCharacter updatedCharacter = service.updateFavoriteStatus(id, character.isFavorite());
         return new ResponseEntity<>(updatedCharacter, HttpStatus.OK);
     }
-
-//    @GetMapping("/{id}/tasks")
-//    public List<Task> getCharacterTaskListById(@PathVariable Long id) {
-//        return service.getTaskForCharacter(id);
-//    }
-
 }

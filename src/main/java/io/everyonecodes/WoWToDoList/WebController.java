@@ -1,7 +1,9 @@
 package io.everyonecodes.WoWToDoList;
 
 import io.everyonecodes.WoWToDoList.blizzardApi.BlizzardService;
+import io.everyonecodes.WoWToDoList.character.WarcraftCharacter;
 import io.everyonecodes.WoWToDoList.character.WarcraftCharacterService;
+import io.everyonecodes.WoWToDoList.task.Task;
 import io.everyonecodes.WoWToDoList.task.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -38,10 +41,16 @@ public class WebController {
 
     @GetMapping("/character/{id}")
     ModelAndView taskListFromCharacterId(@PathVariable Long id) {
-
         ModelAndView view = new ModelAndView("taskListCharacterId.html");
-        view.addObject("tasks", taskService.findByCharacterId(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id)));
+
+        WarcraftCharacter character = warcraftCharacterService.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Character not found with id " + id));
+        List<Task> tasks = taskService.findByCharacterId(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Tasks not found for character with id " + id));
+
+        view.addObject("character", character);
+        view.addObject("tasks", tasks);
+
         return view;
     }
 

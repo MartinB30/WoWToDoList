@@ -18,12 +18,12 @@
     <a th:href="'/character/' + ${char.id}">
         <h2 th:text="${char.name + ' - ' + char.server}">Name - Server</h2>
     </a>
-
-
     <label>
         <input type="checkbox" th:checked="${char.favorite}" th:attr="onchange='toggleFavoriteStatus(' + ${char.id} + ', ' + ${char.favorite} + ')'" />
         Favorite
     </label>
+    <button type="button" th:attr="onclick='confirmDelete(' + ${char.id} + ')'">Delete</button>
+
 
 </div>
 

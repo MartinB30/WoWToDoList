@@ -5,41 +5,7 @@
     <title>Task list</title>
     <link rel="stylesheet" href="/css/styles.css">
     <script th:src="@{/js/scriptsTasks.js}" defer="true"></script>
-    <style>
-        /* Style for the modal */
-        .modal {
-            display: none; /* Hide the modal by default */
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.7);
-        }
 
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fefefe;
-            padding: 20px;
-        }
-
-        .close {
-            color: #aaa;
-            float: right;
-            font-size: 28px;
-            font-weight: bold;
-        }
-
-        .close:hover,
-        .close:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-    </style>
 </head>
 <body>
 
@@ -53,11 +19,18 @@
     <button type="button" onclick="createTask()">Create Task</button>
 </form>
 
+<div>
+    <h2 th:text="${character.name + ' - ' + character.server + ' / To-Do List '}">Character: Name - Server</h2>
+</div>
+
 <div th:each="task : ${tasks}">
     <h2 th:text="${task.taskName}">Task name</h2>
     <p th:text="${task.description}">Task description</p>
     <button type="button" th:attr="onclick='openEditModal(' + ${task.id} + ')'">Edit</button>
-    <input type="checkbox" th:checked="${task.isCompleted}" th:attr="onchange='toggleCompleteStatus(' + ${task.id} + ', ' + ${task.isCompleted} + ')'" />
+    <label>
+        <input type="checkbox" th:checked="${task.isCompleted}" th:attr="onchange='toggleCompleteStatus(' + ${task.id} + ', ' + ${task.isCompleted} + ')'" />
+        done
+    </label>
     <button type="button" th:attr="onclick='confirmDelete(' + ${task.id} + ')'">Delete</button>
 </div>
 

@@ -40,4 +40,25 @@ function addCharacterFromApiToDatabase(name, server) {
             window.location.reload();
         })
         .catch(error => console.error('Error:', error));
+}
+
+function confirmDelete(charId) {
+    let confirmation = confirm('Do you really want to delete the character?');
+    if (confirmation) {
+        deleteCharacter(charId);
     }
+}
+
+function deleteCharacter(charId) {
+    fetch('/api/character/' + charId, {
+        method: 'DELETE',
+    })
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                console.error('Error deleting character, check if the character has task. Delete them first');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+}
