@@ -1,6 +1,8 @@
 package io.everyonecodes.WoWToDoList.task;
 
+import io.everyonecodes.WoWToDoList.character.WarcraftCharacter;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -47,5 +49,11 @@ public class TaskController {
     @DeleteMapping("/{id}")
     void deleteTask(@PathVariable Long id) {
         service.deleteById(id);
+    }
+
+    @PutMapping("/{id}/complete")
+    public ResponseEntity<Task> updateCompleteStatus(@PathVariable Long id, @RequestBody Task task) {
+        Task updatedTask = service.updateCompleteStatus(id, task.isCompleted());
+        return new ResponseEntity<>(updatedTask, HttpStatus.OK);
     }
 }

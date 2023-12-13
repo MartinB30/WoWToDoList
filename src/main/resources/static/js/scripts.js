@@ -135,3 +135,26 @@ function saveEditedTask() {
     })
     .catch(error => console.error('Error:', error));
 }
+
+function toggleCompleteStatus(taskId, currentCompleteStatus) { //used in taskListCharacterId.html to change favorite status
+    console.log('toggleCompleteStatus called with:', taskId, currentCompleteStatus);
+
+    fetch('/api/tasks/' + taskId + '/complete', {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            id: taskId,
+            completed: !currentCompleteStatus,
+        }),
+    })
+    .then(response => {
+        if (response.ok) {
+            location.reload();
+        } else {
+
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
