@@ -26,7 +26,7 @@ public class TaskService {
     }
 
     public Optional<List<Task>> findByCharacterId(@PathVariable Long characterId) {
-        return repository.findByWarcraftCharacterId(characterId);
+        return repository.findByWarcraftCharacterIdOrderByIsCompletedAsc(characterId);
     }
 
     public Optional<Task> findById(Long id) {
