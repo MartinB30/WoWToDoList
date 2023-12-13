@@ -12,6 +12,8 @@
 
 <h1>Blizzard Profile</h1>
 
+<a th:href="'http://localhost:8080'">Homepage</a>
+
 <div th:each="character : ${profile}">
     <p th:text="${character.key + ' - ' + character.value}"></p>
     <button type="button" th:attr="onclick='addCharacterFromApiToDatabase(&quot;' + ${character.key} + '&quot;, &quot;' + ${character.value} + '&quot;)'">Add to Database</button>
