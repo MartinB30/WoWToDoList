@@ -5,36 +5,10 @@
     <meta charset="UTF-8">
     <title>Index</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script th:src="@{/js/scripts.js}" defer="true"></script>
 </head>
 
 <body>
-
-<script th:inline="javascript">
-
-    function toggleFavoriteStatus(characterId, currentFavoriteStatus) {
-        console.log('toggleFavoriteStatus called with:', characterId, currentFavoriteStatus);
-
-        fetch('/api/character/' + characterId + '/favorite', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                id: characterId,
-                favorite: !currentFavoriteStatus,
-            }),
-        })
-        .then(response => {
-            if (response.ok) {
-                location.reload();
-            } else {
-
-            }
-        })
-        .catch(error => console.error('Error:', error));
-    }
-</script>
-
 
 <a th:href="@{/oauth2/authorization/blizzard}">
     <button>Add a new character from your Blizzard Account</button>
