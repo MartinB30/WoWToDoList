@@ -58,6 +58,7 @@
     <p th:text="${task.description}">Task description</p>
     <button type="button" th:attr="onclick='openEditModal(' + ${task.id} + ')'">Edit</button>
     <input type="checkbox" th:checked="${task.isCompleted}" th:attr="onchange='toggleCompleteStatus(' + ${task.id} + ', ' + ${task.isCompleted} + ')'" />
+    <button type="button" th:attr="onclick='confirmDelete(' + ${task.id} + ')'">Delete</button>
 </div>
 
 <!-- Edit Task Modal -->

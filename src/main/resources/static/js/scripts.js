@@ -158,3 +158,25 @@ function toggleCompleteStatus(taskId, currentCompleteStatus) { //used in taskLis
     })
     .catch(error => console.error('Error:', error));
 }
+
+
+function confirmDelete(taskId) {
+        var confirmation = confirm('Do you really want to delete the task?');
+        if (confirmation) {
+            deleteTask(taskId);
+        }
+    }
+
+    function deleteTask(taskId) {
+        fetch('/api/tasks/' + taskId, {
+            method: 'DELETE',
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+            } else {
+                console.error('Error deleting task');
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
