@@ -21,6 +21,7 @@ body {
     transform: translate(-50%, -50%);
     background-color: #fefefe;
     padding: 20px;
+    color: black;
 }
 
 .close {
