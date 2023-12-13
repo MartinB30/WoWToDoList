@@ -73,3 +73,65 @@ function addCharacterFromApiToDatabase(name, server) {//used in profile.html
            .catch(error => console.error('Error:', error));
        }
 
+
+       
+// Function to open the edit modal
+function openEditModal(taskId) {
+    // Fetch task details by taskId and populate the modal inputs
+    fetch('/api/tasks/' + taskId)
+        .then(response => response.json())
+        .then(task => {
+            document.getElementById('editTaskName').value = task.taskName;
+            document.getElementById('editDescription').value = task.description;
+
+            // Set the data-task-id attribute on the modal
+            document.getElementById('editTaskModal').setAttribute('data-task-id', taskId);
+        })
+        .catch(error => console.error('Error:', error));
+
+    // Show the modal
+    document.getElementById('editTaskModal').style.display = 'block';
+}
+
+// Function to close the edit modal
+function closeEditModal() {
+    // Hide the modal
+    document.getElementById('editTaskModal').style.display = 'none';
+}
+
+// Function to save changes to the edited task
+function saveEditedTask() {
+    // Fetch the task ID from the modal's data attribute
+    var taskId = document.getElementById('editTaskModal').getAttribute('data-task-id');
+
+    // Check if taskId is null or undefined
+    if (taskId === null || taskId === undefined) {
+        console.error('Invalid task ID: ' + taskId);
+        return;
+    }
+
+    var editedTaskName = document.getElementById('editTaskName').value;
+    var editedDescription = document.getElementById('editDescription').value;
+
+    // Update the task in the database
+    fetch('/api/tasks/' + taskId, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            taskName: editedTaskName,
+            description: editedDescription,
+        }),
+    })
+    .then(response => {
+        if (response.ok) {
+            // Close the modal and refresh the page or update the task list
+            closeEditModal();
+            location.reload();
+        } else {
+            // Handle error
+        }
+    })
+    .catch(error => console.error('Error:', error));
+}
