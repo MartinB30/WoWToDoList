@@ -1,35 +1,39 @@
 package io.everyonecodes.WoWToDoList.blizzardApi;
 
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParser;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 @Component
 public class CharacterExtractor {
 
-    public Map<String, String> extractCharacters(String json) {
+        public Map<String, String> extractCharactersNameAndServer(String json) {
+
         Map<String, String> characterMap = new HashMap<>();
+
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(json);
+            JsonNode jsonNode = objectMapper.readTree(json);
 
-            JsonNode wowAccountsNode = rootNode.path("wow_accounts");
-            if (wowAccountsNode.isArray()) {
-                for (JsonNode accountNode : wowAccountsNode) {
-                    JsonNode charactersNode = accountNode.path("characters");
-                    if (charactersNode.isArray()) {
-                        for (JsonNode characterNode : charactersNode) {
-                            String name = characterNode.path("name").asText();
-                            String realmName = characterNode.path("realm").path("name").asText();
-                            characterMap.put(name, realmName);
-                        }
-                    }
+            JsonNode wowAccountsNode = jsonNode.path("wow_accounts");
+            for (JsonNode accountNode : wowAccountsNode) {
+                JsonNode charactersNode = accountNode.path("characters");
+                for (JsonNode characterNode : charactersNode) {
+                    String name = characterNode.path("name").asText();
+                    String server = characterNode.path("realm").path("name").asText();
+                    characterMap.put(name, server);
                 }
             }
-        } catch (Exception e) {
+
+        } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
         return characterMap;

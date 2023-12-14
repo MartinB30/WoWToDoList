@@ -68,4 +68,16 @@ public class WebController {
 
         return view;
     }
+
+//    DTO experiment
+//    @GetMapping("/character/profile")
+//    ModelAndView profilePage(Authentication authentication) {
+//
+//        ModelAndView view = new ModelAndView("profile.html");
+//        List<String> profile = blizzardService.profileRequestOnlyNameAndServer(authentication);
+//
+//        view.addObject("profile", profile);
+//
+//        return view;
+//    }
 }

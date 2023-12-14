@@ -9,7 +9,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    private static final String nameSpace = "profile-classic1x-eu";
+    private static final String NAME_SPACE = "profile-classic1x-eu";
 
     public WebClientConfig(OAuth2AuthorizedClientService authorizedClientService) {
     }
@@ -18,7 +18,7 @@ public class WebClientConfig {
     public WebClient webClient() {
         return WebClient.builder()
                 .baseUrl("https://{region}.api.blizzard.com/profile/user/wow")
-                .defaultHeader("Battlenet-Namespace", nameSpace)
+                .defaultHeader("Battlenet-Namespace", NAME_SPACE)
                 .build();
     }
 }

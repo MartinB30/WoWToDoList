@@ -16,9 +16,38 @@
 
 <div th:each="character : ${profile}">
     <p th:text="${character.key + ' - ' + character.value}"></p>
-    <button type="button" th:attr="onclick='addCharacterFromApiToDatabase(&quot;' + ${character.key} + '&quot;, &quot;' + ${character.value} + '&quot;)'">Add to Database</button>
+    <button type="button"
+            th:attr="onclick='addCharacterFromApiToDatabase(&quot;' + ${character.key} + '&quot;, &quot;' + ${character.value} + '&quot;)'">
+        Add to Database
+    </button>
 </div>
 
 </body>
 
 </html>
+
+<!--dto experiment-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>profile</title>-->
+<!--    <link rel="stylesheet" href="/css/styles.css">-->
+<!--    <script th:src="@{/js/scripts.js}" defer="true"></script>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<h1>Blizzard Profile</h1>-->
+
+<!--<a th:href="'http://localhost:8080'">Homepage</a>-->
+
+<!--<div th:each="character : ${profile}">-->
+<!--    <p th:text="${character}"></p>-->
+<!--    <button type="button" th:attr="onclick='addCharacterFromApiToDatabase(&quot;' + ${character} + '&quot;)'">Add to Database</button>-->
+<!--</div>-->
+
+<!--</body>-->
+
+<!--</html>-->
