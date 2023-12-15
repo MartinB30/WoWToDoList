@@ -7,8 +7,11 @@
     <script th:src="@{/js/scriptsTasks.js}" defer="true"></script>
 
 </head>
+
 <body>
-<a th:href="'http://localhost:8080'">Homepage</a>
+    <h1>
+        <a th:href="'http://localhost:8080'">Homepage</a>
+    </h1>
 
 <form id="createTaskForm">
     <label for="taskName">Task Name:</label>
@@ -24,7 +27,7 @@
     <h2 th:text="${character.name + ' - ' + character.server + ' / To-Do List '}">Character: Name - Server</h2>
 </div>
 
-<div th:each="task : ${tasks}">
+<div th:each="task : ${tasks}" class="character-box">
     <h2 th:text="${task.taskName}">Task name</h2>
     <p th:text="${task.description}">Task description</p>
     <button type="button" th:attr="onclick='openEditModal(' + ${task.id} + ')'">Edit</button>
@@ -51,3 +54,4 @@
 
 </body>
 </html>
+

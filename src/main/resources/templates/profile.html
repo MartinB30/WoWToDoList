@@ -10,11 +10,13 @@
 
 <body>
 
-<h1>Blizzard Profile</h1>
+<h1>
+    <a th:href="'http://localhost:8080'">Homepage</a>
+    <p>Blizzard Profile</p>
+</h1>
 
-<a th:href="'http://localhost:8080'">Homepage</a>
 
-<div th:each="character : ${profile}">
+<div th:each="character : ${profile}" class="character-box">
     <p th:text="${character.key + ' - ' + character.value}"></p>
     <button type="button"
             th:attr="onclick='addCharacterFromApiToDatabase(&quot;' + ${character.key} + '&quot;, &quot;' + ${character.value} + '&quot;)'">
