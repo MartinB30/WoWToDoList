@@ -11,9 +11,6 @@ public class WebClientConfig {
 
     private static final String NAME_SPACE = "profile-classic1x-eu";
 
-    public WebClientConfig(OAuth2AuthorizedClientService authorizedClientService) {
-    }
-
     @Bean
     public WebClient webClient() {
         return WebClient.builder()

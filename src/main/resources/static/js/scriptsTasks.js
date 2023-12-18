@@ -1,4 +1,4 @@
-function createTask() { //create a new task in taskListCharacterId
+function createTask() {
     let taskName = document.getElementById('taskName').value;
     let description = document.getElementById('description').value;
     let characterId = Number(window.location.pathname.split('/').pop());

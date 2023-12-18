@@ -14,7 +14,8 @@ import java.util.Map;
 
 
 @Service
-public class BlizzardService {
+public class
+BlizzardService {
 
     private static final String REGION = "eu";
     private static final String LOCALE = "?locale=en_US";
