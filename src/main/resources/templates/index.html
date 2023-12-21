@@ -13,6 +13,9 @@
 <a th:href="@{/oauth2/authorization/blizzard}">
     <button>Add a new character from your Blizzard Account</button>
 </a>
+<a th:href="@{/swagger-ui/index.html#/}">
+    <button>API documentation</button>
+</a>
 
 <div th:each="char : ${warcraftCharacter}" class="character-box">
     <h2>
